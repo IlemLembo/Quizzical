@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import up from "./assets/images/up.svg"
+import down from "./assets/images/down.svg"
+import Home from './components/Home';
+import QuizzGame from './components/QuizzGame';
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom"
+
 
 function App() {
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <img src={up} alt="" className="up"/>
+      <img src={down} alt="" className="down"/>
+
+      <QuizzGame />
+      {/*
+      <Router>
+        <Routes>
+          <Route exact path='/' Component={Home}>
+          </Route>
+        </Routes>
+      
+      </Router>*/
+      }
     </div>
   );
 }
