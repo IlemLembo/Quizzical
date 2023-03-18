@@ -40,7 +40,7 @@ function QuizzGame(){
             setQuestions(shuffledQuestions);
             setLoading(false);
         });
-    }, []);
+    }, [loading]);
 
     
     const handleCheckAnswers=()=>{
@@ -69,6 +69,11 @@ function QuizzGame(){
         window.location.href = `${window.location.href}`;
     }
 
+    const handleReset = () => {
+        setLoading(true);
+        setCheckedAnswers(false);
+    };
+
     return(
         <div className="quizzes">
         
@@ -84,7 +89,7 @@ function QuizzGame(){
                     </button> : 
                     <button 
                         className="play--button"
-                        onClick={handleReload}
+                        onClick={handleReset}
                         >
                         
                         Replay
