@@ -1,14 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Quizz from "./Tools";
 
-import {nanoid} from "nanoid"
+/*import {nanoid} from "nanoid"*/
 
 
 function QuizzGame(){
+    
+    function shuffleArray(array) {
+
+        for (let i = array.length - 1; i > 0; i--) {
+
+            const j = Math.floor(Math.random() * (i + 1));
+
+            [array[i], array[j]] = [array[j], array[i]];
+
+        }
+
+        return array;
+    }
+
     const [questions, setQuestions] = React.useState([])
     const [loading, setLoading] = React.useState(true)
-
-    const [checked, setChecked] = React.useState(false)
+    const [checkedAnswers, setCheckedAnswers] = React.useState(false)
 
 
 
@@ -16,42 +30,68 @@ function QuizzGame(){
         fetch("https://opentdb.com/api.php?amount=5")
         .then(response => response.json())
         .then(data => {
-            setQuestions(data.results);
+            const shuffledQuestions = data.results.map((quizz) => {
+                const shuffledOptions = shuffleArray([
+                    ...quizz.incorrect_answers,
+                    quizz.correct_answer,
+                ]);
+                return { ...quizz, options: shuffledOptions };
+            });
+            setQuestions(shuffledQuestions);
             setLoading(false);
-            console.log(questions);
         });
-    },
-    [])
+    }, []);
+
+    
+    const handleCheckAnswers=()=>{
+        setCheckedAnswers(true);
+    };
 
     const quizzes=()=>{
-        return questions.map(quizz => <div><Quizz
+        return questions.map((quizz, index) => 
+            (<div key={index}>
+                <Quizz
 
-            question={quizz.question}
+                    question={quizz.question}
 
-            options={quizz.incorrect_answers.map(
-                option=> (
-                    {
-                        id: nanoid(),
-                        content: option}
-                        ))
-                    }
+                    options={quizz.options}
 
+                    correct_answer={quizz.correct_answer}
+                    check={checkedAnswers}
+                />
 
-            correct_answer={{
-                id: nanoid(),
-                content: quizz.correct_answer}} />
-            <hr></hr>
-        </div>
-
+                
+            </div>)
         )
     }
+
+    const handleReload = () => {
+        window.location.href = `${window.location.href}`;
+    }
+
     return(
         <div className="quizzes">
         
-            {loading ? <h1>Loading...</h1> : 
-            quizzes()}
+            {loading ? (<h1>Loading...</h1>) : (
+                < >
+                    {quizzes()}
+                    {!checkedAnswers?<button 
+                        className="play--button"
+                        onClick={handleCheckAnswers}
+                        disabled={checkedAnswers}>
 
-            {!loading && <button className="play--button">Check answers</button>}
+                        Check answers
+                    </button> : 
+                    <button 
+                        className="play--button"
+                        onClick={handleReload}
+                        >
+                        
+                        Replay
+                    </button>}
+                </>
+            )}
+
             
         </div>
     )

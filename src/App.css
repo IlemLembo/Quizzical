@@ -48,12 +48,18 @@
 }
 
 .play--button{
-  margin-top: 1em;
-  padding: 0.4em;
+  margin: 1.5em 0em;
+  padding: 0.5em;
   border-radius: 1.2em;
   background-color: #4D5B9E;
   color: white;
   font-size: 1.4em;
+  z-index: 100;
+  position: relative;
+
+  align-self: center;
+  align-content: center;
+  align-items: center;
 }
 
 
@@ -61,6 +67,7 @@
   transform: scale(1.1);
   transition: .4s ease-in-out;
   background-color: #4D5F9E;
+  cursor: pointer;
 }
 
 
@@ -73,8 +80,8 @@
   position: relative;
   flex-direction: row;
   align-items: center;
-  padding: 1em 2em;
-  margin:  0 2em;
+  padding: 0.2em 1em;
+  margin:  1em 2em;
 }
 
 .option--btn{
@@ -82,7 +89,8 @@
   border: 1.5px solid #293264;
   border-radius: 1em;
   padding: 0.5em;
-  margin-left: 1em;
+  margin: 0em 0.5em 0em 0em;
+  position: relative;
 }
 
 .option--btn:hover{
@@ -96,6 +104,7 @@
 }
 .quizz{
   padding-top: 1em;
+  z-index: 1;
 }
 
 .quizzes{
@@ -104,6 +113,7 @@
   flex-direction: column;
   align-items: center;
   align-content: center;
+  text-align: center;
   z-index: 1;
   height: 90vh;
   position: absolute;
@@ -122,5 +132,19 @@ hr{
   width: 80vw;
 }
 
+.correct{
+  background-color: #00FF50;
+}
+.incorrect{
+  background-color: rosybrown;
+}
+
 /* Start of QuzzGames Component */
 
+a{
+  z-index: 101;
+  color: inherit;
+  padding: 2em;
+  text-decoration-style: none;
+  cursor: pointer;
+}

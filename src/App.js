@@ -10,21 +10,27 @@ function App() {
   
 
   return (
+    <Router>
     <div className="App">
       <img src={up} alt="" className="up"/>
       <img src={down} alt="" className="down"/>
 
-      <QuizzGame />
-      {/*
-      <Router>
+      
+      
+      
+
         <Routes>
-          <Route exact path='/' Component={Home}>
-          </Route>
+        
+          <Route exact path='/' Component={Home}  />
+          
+          <Route path='/quizz' Component={QuizzGame} />
+          
         </Routes>
       
-      </Router>*/
-      }
+      
+
     </div>
+    </Router>
   );
 }
 
